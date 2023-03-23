@@ -1,0 +1,11 @@
+.outerDiv {
+    padding: 15px;
+    border: 0.5px solid gray;
+}
+.row {
+    padding-top: 10px;
+}
+.form-control {
+    padding: 0.75rem !important;
+    border: 0.5px solid #3d4042 !important;
+}
