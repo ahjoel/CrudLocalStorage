@@ -91,11 +91,32 @@ export class AppComponent {
     }
   }
 
-  // const index = this.users.findIndex(u => u.id === user.id);
-  //   if (index >= 0) {
-  //     this.users.splice(index, 1);
-  //     localStorage.setItem(this.localStorageKey, JSON.stringify(this.users));
-  //   }
+  onSearch() {
+    const isData = localStorage.getItem("EmpData");
+    if(isData != null) {
+      const localData = JSON.parse(isData);
+      const filteredData = localData.filter((m:EmployeeObj) => m.FirstName.toLocaleLowerCase().startsWith(this.searchText.toLocaleLowerCase()) )
+      this.employeeArr = filteredData;
+    }
+  }
+
+  onSort() {
+    const isData = localStorage.getItem("EmpData");
+    if(isData != null) {
+      const localData = JSON.parse(isData);
+      if (this.sortBy == "Name") {
+        const filteredData = localData.sort((a:any, b: any) => a.FirstName.localeCompare(b.FirstName))
+        this.employeeArr = filteredData;
+      }
+      if (this.sortBy == "Technology") {
+        const filteredData = localData.sort((a:any, b: any) => a.Technology.localeCompare(b.Technology))
+        this.employeeArr = filteredData;
+      }
+    }
+  }
+
+
+
 
 
 }

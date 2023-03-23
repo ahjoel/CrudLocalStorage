@@ -142,15 +142,15 @@
   
           </div>
           <div class="col-md-3">
-            <select [(ngModel)]="sortBy" class="form-control">
-              <option>Select</option>
+            <select [(ngModel)]="sortBy" (change)="onSort()" class="form-control">
+              <option selected value="" >Select Sort By</option>
               <option>Dot Net</option>
               <option>Angular</option>
               <option>React</option>
             </select>
           </div>
           <div class="col-md-3">
-            <input type="text" [(ngModel)]="searchText" class="form-control">
+            <input type="text" placeholder="Search Text"  [(ngModel)]="searchText" (ngModelChange)="onSearch()" class="form-control">
           </div>
         </div>
 
