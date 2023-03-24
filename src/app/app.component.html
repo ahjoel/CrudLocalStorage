@@ -55,10 +55,8 @@
               </div>
               <div class="col-md-4">
                 <select name="Skill" #Skill="ngModel" required [(ngModel)]="employeeObj.Skill" class="form-control">
-                  <option>Select</option>
-                  <option>Dot Net</option>
-                  <option>Angular</option>
-                  <option>React</option>
+                  <option selected value="">Select Skill</option>
+                  <option *ngFor="let lang of LangArr" [value]="lang.id">{{lang.name}}</option>
                 </select>
                 <div *ngIf="Skill.touched">
                   <span *ngIf="Skill.errors?.['required']">Required</span>
@@ -137,7 +135,7 @@
       <h3>Employee List</h3>
       <div class="outerDiv">
         
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-md-6">
   
           </div>
@@ -152,7 +150,7 @@
           <div class="col-md-3">
             <input type="text" placeholder="Search Text"  [(ngModel)]="searchText" (ngModelChange)="onSearch()" class="form-control">
           </div>
-        </div>
+        </div> -->
 
         <div class="row">
           <div class="col-md-12">
@@ -170,13 +168,13 @@
                 </tr>
               </thead>
               <tbody>
-                <ng-container *ngIf="employeeArr.length !=0">
-                  <tr *ngFor="let item of employeeArr; let sr = index">
+                <ng-container *ngIf="data.length !=0">
+                  <tr *ngFor="let item of data; let sr = index">
                     <td>{{sr+1}}</td>
                     <td>{{item.FirstName}} {{item.LastName}}</td>
                     <td>{{item.Technology}}</td>
                     <td>{{item.Designation}}</td>
-                    <td>{{item.Skill}}</td>
+                    <td>{{item.lang?.name}}</td>
                     <td>{{item.Core}}</td>
                     <td>{{item.Company}}</td>
                     <td>
@@ -186,7 +184,7 @@
                   </tr>
                 </ng-container>
 
-                <ng-container *ngIf="employeeArr.length == 0">
+                <ng-container *ngIf="data.length == 0">
                     <tr>
                       <td colspan="8" class="text-center">No Record Present</td>
                     </tr>
