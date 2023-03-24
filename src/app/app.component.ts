@@ -11,7 +11,8 @@ export class AppComponent {
   isedit:boolean=false;
   sortBy: string;
   searchText: string;
-  employeeArr: EmployeeObj[] = []
+  employeeArr: EmployeeObj[] = [];
+  e:any;
 
   constructor(){
     this.employeeObj = new EmployeeObj();
@@ -28,17 +29,27 @@ export class AppComponent {
     // this.employeeArr.push(this.employeeObj);
     const isData = localStorage.getItem('EmpData');
     if (isData == null) {
+      // First Record with set first ID
       const newArr = [];
       this.employeeObj.EmployeeId = 1;
       newArr.push(this.employeeObj);
       localStorage.setItem('EmpData', JSON.stringify(newArr));
     } else {
+      // Second Record with increment ID
       const oldData = JSON.parse(isData);
-      const newId = oldData.length + 1;
-      this.employeeObj.EmployeeId = newId;
-      oldData.push(this.employeeObj);
-      // console.log('New Data', oldData);
-      localStorage.setItem('EmpData', JSON.stringify(oldData));
+      const datafind_1 = oldData.find((e: { FirstName: any; }) => e.FirstName === this.employeeObj.FirstName)
+      const datafind_2 = oldData.find((e: { LastName: any; }) => e.LastName === this.employeeObj.LastName)
+
+      // Cheick to eliminate double record
+      if ((datafind_1 !== 'undefined') && (datafind_2  !== 'undefined')){
+        const newId = oldData.length + 1;
+        this.employeeObj.EmployeeId = newId;
+        oldData.push(this.employeeObj);
+        // Save in localstorage
+        localStorage.setItem('EmpData', JSON.stringify(oldData));
+      }else {
+        alert('Le Nom et Prénom existent déja. Veuillez saisir une nouvelle!');
+      }
     }
     this.employeeObj = new EmployeeObj();
     this.getAllEmployee();
